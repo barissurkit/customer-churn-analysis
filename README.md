@@ -53,6 +53,10 @@ Model, testteki 374 gerçek churn müşterisinin 215'ini doğru tahmin etmiş; 1
 
 ![Logistic Regression confusion matrix](outputs/figures/confusion_matrix.png)
 
+## Medium Makalesi
+
+Bootcamp final çalışması **Makine Öğrenmesi ile Müşteri Kaybı Tahmini: Customer Churn Analizi** başlığıyla Medium'da yayımlandı: [Medium'da makaleyi oku](https://medium.com/@bbarisrkt/makine-%C3%B6%C4%9Frenmesi-ile-m%C3%BC%C5%9Fteri-kayb%C4%B1-tahmini-customer-churn-analizi-90a97ae6bf05).
+
 ## Proje Yapısı
 
 ```text
@@ -60,6 +64,7 @@ customer-churn-analysis/
 ├── customer_churn_analysis.ipynb
 ├── data/
 │   └── Telco-Customer-Churn.csv
+├── medium_article.md
 ├── outputs/
 │   └── figures/
 ├── README.md
