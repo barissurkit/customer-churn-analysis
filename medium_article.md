@@ -17,12 +17,13 @@ Değişkenler tek tek bakıldığında oldukça fazla görünebilir; ancak temel
 - Abonelik ve ödeme bilgileri: müşteri süresi (*tenure*), sözleşme türü, aylık ücret, toplam ücret ve ödeme yöntemi.
 - Hedef değişken: `Churn`. `Yes`, müşterinin ayrıldığını; `No`, hizmete devam ettiğini gösteriyor.
 
-Bu yapı, hem müşteri profilini hem de kullanılan hizmetlerin ve ödeme tercihinin churn ile birlikte nasıl göründüğünü incelemeye imkân veriyor.
+Bu yapı, hem müşteri profilini hem de kullanılan hizmetler ile ödeme tercihlerinin churn ile nasıl ilişkili göründüğünü incelemeye imkân veriyor.
 
 ## İlk Bakış: Churn Dağılımı
 
 EDA'nın ilk adımında hedef değişkenin dağılımına baktım. Veri setinde 5.174 müşteri (`%73,46`) churn etmemiş, 1.869 müşteri (`%26,54`) ise churn etmiş durumda.
 
+<!-- MEDIUM: Buraya churn_distribution.png görselini yükle -->
 ![Churn dağılımı](outputs/figures/churn_distribution.png)
 
 Bu dağılım sınıfların tamamen dengeli olmadığını gösteriyor. Bu yüzden model sonucunu yalnızca accuracy ile değerlendirmek yeterli olmayabilir. Model, çoğunlukta olan `No Churn` sınıfını daha sık tahmin ederek yüksek görünen bir accuracy elde edebilir. Bu nedenle ileride precision, recall ve F1-score değerlerine de bakmak gerekiyor.
@@ -33,14 +34,16 @@ Bu dağılım sınıfların tamamen dengeli olmadığını gösteriyor. Bu yüzd
 
 Sözleşme türüne göre churn oranları belirgin biçimde farklılaştı. Aylık sözleşmesi (*Month-to-month*) olan müşterilerde churn oranı `%42,7` iken bir yıllık sözleşmede `%11,3`, iki yıllık sözleşmede ise `%2,8` olarak gözlendi.
 
+<!-- MEDIUM: Buraya contract_churn.png görselini yükle -->
 ![Sözleşme türüne göre churn oranı](outputs/figures/contract_churn.png)
 
-Bu sonuç, bu veri setinde aylık sözleşme grubunda daha yüksek bir churn oranı bulunduğunu gösteriyor. Ancak buradan sözleşme türünün tek başına churn'e neden olduğu sonucu çıkarılamaz. Müşterilerin ihtiyaçları, hizmet tercihleri veya başka değişkenler de bu gözlenen farkla birlikte rol oynuyor olabilir.
+Bu sonuç, bu veri setinde aylık sözleşme grubunda daha yüksek bir churn oranı bulunduğunu gösteriyor. Ancak buradan sözleşme türünün tek başına churn'e neden olduğu sonucu çıkarılamaz. Müşterilerin ihtiyaçları, hizmet tercihleri veya başka değişkenler de bu farkla ilişkili olabilir.
 
 ### Müşteri süresi ve aylık ücret
 
-Müşteri süresi, yani `tenure`, churn ile birlikte dikkat çeken değişkenlerden biri oldu. Churn eden müşterilerin medyan müşteri süresi 10 ayken churn etmeyen müşterilerde bu değer 38 ay.
+Müşteri süresi, yani `tenure`, churn ile birlikte öne çıkan değişkenlerden biri oldu. Churn eden müşterilerin medyan müşteri süresi 10 ayken churn etmeyen müşterilerde bu değer 38 ay.
 
+<!-- MEDIUM: Buraya tenure_churn.png görselini yükle -->
 ![Churn durumuna göre tenure dağılımı](outputs/figures/tenure_churn.png)
 
 Grafikte de churn eden grubun daha düşük sürelerde yoğunlaştığı görülüyor. Benzer şekilde `MonthlyCharges` dağılımında churn eden müşterilerin medyan aylık ücreti 79,65, churn etmeyenlerin medyanı ise 64,43. Dağılımlar kısmen örtüşse de, churn eden grubun aylık ücret merkezinin daha yüksek olduğu gözleniyor.
@@ -84,6 +87,7 @@ Test setindeki temel sonuçlar aşağıdaki gibi oldu:
 
 Confusion matrix, modelin tahminlerini daha ayrıntılı okumayı sağlıyor:
 
+<!-- MEDIUM: Buraya confusion_matrix.png görselini yükle -->
 ![Logistic Regression confusion matrix](outputs/figures/confusion_matrix.png)
 
 - True Negative (TN): 917
@@ -101,7 +105,7 @@ Bu problemde recall ayrıca önemli. Çünkü churn edecek bir müşterinin göz
 
 Modelin gerçekten anlamlı bir katkı sağlayıp sağlamadığını görmek için basit bir baseline da hesapladım. Test setindeki herkese `No Churn` denilseydi accuracy `%73,42` olacaktı. Logistic Regression ise `%80,45` accuracy elde etti.
 
-Aradaki fark yaklaşık `7 yüzde puanı`dır (tam hesapla `7,04 yüzde puanı`). Bu fark, modelin yalnızca çoğunluk sınıfını tahmin etmekten daha iyi bir sonuç verdiğini gösteriyor. Yine de baseline'ı geçmek, modelin tüm churn müşterilerini yakaladığı anlamına gelmiyor; confusion matrix ve recall değeri bu sınırı açıkça gösteriyor.
+Aradaki fark, raporlanan iki ondalık değer üzerinden yaklaşık `7,03 yüzde puanı`. Bu fark, modelin yalnızca çoğunluk sınıfını tahmin etmekten daha iyi bir sonuç verdiğini gösteriyor. Yine de baseline'ı geçmek, modelin tüm churn müşterilerini yakaladığı anlamına gelmiyor; confusion matrix ve recall değeri bu sınırı açıkça gösteriyor.
 
 ## Sonuç
 
@@ -120,3 +124,5 @@ Ayrıca kategorik verileri one-hot encoding ile dönüştürmeyi, train/test spl
 Notebook, veri seti ve üretilen grafiklere GitHub üzerinden ulaşabilirsiniz:
 
 [github.com/barissurkit/customer-churn-analysis](https://github.com/barissurkit/customer-churn-analysis)
+
+<!-- MEDIUM TAGS: Machine Learning, Data Science, Python, Logistic Regression, Data Analysis -->
