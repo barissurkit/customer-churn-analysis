@@ -71,7 +71,7 @@ customer-churn-analysis/
 └── requirements.txt
 ```
 
-## Kullanılan Teknolojiler
+## Teknolojiler
 
 - Python
 - pandas
@@ -81,13 +81,49 @@ customer-churn-analysis/
 - scikit-learn
 - Jupyter Notebook
 
-## Çalıştırma
+## Gereksinimler
+
+- Python 3.12 veya üzeri (`requirements.txt` içindeki `numpy==2.5.2` Python 3.12+ gerektirir; 3.12 ile doğrulandı)
+- `requirements.txt` içindeki sabit sürümler: pandas 3.0.5, numpy 2.5.2, matplotlib 3.11.1, seaborn 0.13.2, scikit-learn 1.9.0, jupyter 1.1.1
+
+## Kurulum
 
 ```bash
 git clone https://github.com/barissurkit/customer-churn-analysis.git
 cd customer-churn-analysis
 python -m venv .venv
-source .venv/bin/activate
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
+```
+
+## Kullanım
+
+Not defterini repository'nin kök dizininden açın (veriyi `data/Telco-Customer-Churn.csv` yolundan okur):
+
+```bash
 jupyter notebook customer_churn_analysis.ipynb
 ```
+
+Tüm hücreler çalıştırıldığında (Kernel > Restart & Run All) grafikler `outputs/figures/` dizinine kaydedilir ve model değerlendirme hücreleri şu sonuçları verir:
+
+```text
+Veri setinin boyutu: 7043 satır × 21 sütun
+Accuracy: 0.8045 (%80.45)
+```
+
+## Testler
+
+```bash
+pip install pytest
+pytest tests
+```
+
+Testler veri setinin yapısını doğrular ve not defterindeki tüm kod hücrelerini geçici bir dizinde çalıştırarak README'deki sonuçları (7.032 satırlık modelleme verisi, %80,45 accuracy, %73,42 baseline, confusion matrix) yeniden üretir.
+
+## Katkı
+
+Katkı rehberi için [CONTRIBUTING.md](CONTRIBUTING.md) dosyasına bakın.
+
+## Lisans
+
+[MIT](LICENSE)
